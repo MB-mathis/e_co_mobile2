@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../utils/translations.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -38,9 +39,9 @@ class _SplashScreenState extends State<SplashScreen> {
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
-            const Text(
-              'Course d\'orientation',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
+            Text(
+              Translations.t('courseOrientation', 'fr'),
+              style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
             const SizedBox(height: 40),
             const CircularProgressIndicator(),

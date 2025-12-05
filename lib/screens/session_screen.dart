@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/language_provider.dart';
+import '../utils/translations.dart';
 
 class SessionScreen extends StatefulWidget {
   const SessionScreen({super.key});
@@ -12,42 +15,47 @@ class _SessionScreenState extends State<SessionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.green,
-        title: const Text('Session Active'),
-        elevation: 0,
-      ),
-      body: _showMap ? _buildMapView() : _buildBeaconsView(),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              icon: const Icon(Icons.map),
-              onPressed: () {
-                setState(() {
-                  _showMap = true;
-                });
-              },
-              tooltip: 'Voir la carte',
+    return Consumer<LanguageProvider>(
+      builder: (context, languageProvider, _) {
+        final lang = languageProvider.languageCode;
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.green,
+            title: Text(Translations.t('activeSession', lang)),
+            elevation: 0,
+          ),
+          body: _showMap ? _buildMapView(lang) : _buildBeaconsView(lang),
+          bottomNavigationBar: BottomAppBar(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.map),
+                  onPressed: () {
+                    setState(() {
+                      _showMap = true;
+                    });
+                  },
+                  tooltip: Translations.t('mapBeacons', lang),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.list),
+                  onPressed: () {
+                    setState(() {
+                      _showMap = false;
+                    });
+                  },
+                  tooltip: Translations.t('beaconList', lang),
+                ),
+              ],
             ),
-            IconButton(
-              icon: const Icon(Icons.list),
-              onPressed: () {
-                setState(() {
-                  _showMap = false;
-                });
-              },
-              tooltip: 'Voir les balises',
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 
-  Widget _buildBeaconsView() {
+  Widget _buildBeaconsView(String lang) {
     return ListView.builder(
       itemCount: 5, // TODO: Remplacer par les vraies balises
       itemBuilder: (context, index) => Card(
@@ -59,28 +67,28 @@ class _SessionScreenState extends State<SessionScreen> {
             onPressed: () {
               // TODO: Scanner la balise
             },
-            child: const Text('Scanner'),
+            child: Text(Translations.t('scanBeacon', lang)),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildMapView() {
-    return const Center(
+  Widget _buildMapView(String lang) {
+    return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.map, size: 60, color: Colors.green),
-          SizedBox(height: 20),
+          const Icon(Icons.map, size: 60, color: Colors.green),
+          const SizedBox(height: 20),
           Text(
-            'Carte des balises',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Translations.t('mapBeacons', lang),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Text(
             'La carte sera affichée ici',
-            style: TextStyle(color: Colors.grey),
+            style: const TextStyle(color: Colors.grey),
           ),
         ],
       ),

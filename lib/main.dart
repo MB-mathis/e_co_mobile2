@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/auth_provider.dart';
 import 'providers/language_provider.dart';
+import 'providers/dynamic_translation_provider.dart';
 import 'screens/splash_screen.dart';
 import 'screens/role_selection_screen.dart';
 import 'screens/professor_login_screen.dart';
@@ -10,7 +11,13 @@ import 'screens/participant_home_screen.dart';
 import 'screens/qr_scanner_screen.dart';
 import 'screens/session_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialiser LibreTranslate (pas besoin de clé API pour la version gratuite)
+  final translationProvider = DynamicTranslationProvider();
+  await translationProvider.initialize(null);
+
   runApp(const MyApp());
 }
 
@@ -23,6 +30,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => LanguageProvider()),
+        ChangeNotifierProvider(create: (_) => DynamicTranslationProvider()),
       ],
       child: MaterialApp(
         title: 'E-CO Mobile',

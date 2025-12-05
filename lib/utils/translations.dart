@@ -1,35 +1,40 @@
+import '../services/translation_service.dart';
+
 class Translations {
+  // Traductions de base en français
+  static const Map<String, String> frenchTranslations = {
+    'appTitle': 'E-CO Mobile',
+    'selectRole': 'Sélectionnez votre rôle',
+    'professor': 'Professeur',
+    'participant': 'Participant',
+    'login': 'Connexion',
+    'email': 'Email',
+    'password': 'Mot de passe',
+    'loginError': 'Erreur de connexion',
+    'sessions': 'Sessions',
+    'courses': 'Parcours',
+    'createSession': 'Créer une session',
+    'noCourses': 'Aucun parcours disponible',
+    'scanQR': 'Scanner le QR code',
+    'enterCode': 'Entrer le code de session',
+    'or': 'ou',
+    'enterPseudo': 'Entrez votre pseudo',
+    'validate': 'Valider',
+    'cancel': 'Annuler',
+    'homeSession': 'Accueil Participant',
+    'activeSession': 'Session Active',
+    'beacons': 'Balises',
+    'map': 'Carte',
+    'courseOrientation': 'Course d\'orientation',
+    'scanBeacon': 'Scanner',
+    'beaconList': 'Liste des balises',
+    'mapBeacons': 'Carte des balises',
+    'language': 'Langue',
+    'selectLanguage': 'Sélectionner la langue',
+  };
+
   static const Map<String, Map<String, String>> translations = {
-    'fr': {
-      'appTitle': 'E-CO Mobile',
-      'selectRole': 'Sélectionnez votre rôle',
-      'professor': 'Professeur',
-      'participant': 'Participant',
-      'login': 'Connexion',
-      'email': 'Email',
-      'password': 'Mot de passe',
-      'loginError': 'Erreur de connexion',
-      'sessions': 'Sessions',
-      'courses': 'Parcours',
-      'createSession': 'Créer une session',
-      'noCourses': 'Aucun parcours disponible',
-      'scanQR': 'Scanner le QR code',
-      'enterCode': 'Entrer le code de session',
-      'or': 'ou',
-      'enterPseudo': 'Entrez votre pseudo',
-      'validate': 'Valider',
-      'cancel': 'Annuler',
-      'homeSession': 'Accueil Participant',
-      'activeSession': 'Session Active',
-      'beacons': 'Balises',
-      'map': 'Carte',
-      'courseOrientation': 'Course d\'orientation',
-      'scanBeacon': 'Scanner',
-      'beaconList': 'Liste des balises',
-      'mapBeacons': 'Carte des balises',
-      'language': 'Langue',
-      'selectLanguage': 'Sélectionner la langue',
-    },
+    'fr': frenchTranslations,
     'en': {
       'appTitle': 'E-CO Mobile',
       'selectRole': 'Select your role',
@@ -94,5 +99,22 @@ class Translations {
 
   static String t(String key, String languageCode) {
     return translations[languageCode]?[key] ?? translations['fr']?[key] ?? key;
+  }
+
+  /// Traduit un texte personnalisé avec LibreTranslate vers la langue cible
+  static Future<String> translateCustomText(
+    String text,
+    String targetLanguage,
+    TranslationService? translationService,
+  ) async {
+    if (targetLanguage == 'fr') {
+      return text; // Le texte est déjà en français
+    }
+
+    if (translationService == null) {
+      return text; // Service non initialisé
+    }
+
+    return await translationService.translate(text, targetLanguage);
   }
 }

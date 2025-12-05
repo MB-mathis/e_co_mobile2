@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 enum Language {
-  french('fr', 'Français', '🇫🇷'),
-  english('en', 'English', '🇬🇧'),
-  basque('eu', 'Euskera', '🏴');
+  french('fr', 'Français', 'assets/flags/france.svg'),
+  english('en', 'English', 'assets/flags/uk.svg'),
+  basque('eu', 'Euskera', 'assets/flags/basque.svg');
 
   final String code;
   final String name;
-  final String flag;
+  final String flagAsset;
 
-  const Language(this.code, this.name, this.flag);
+  const Language(this.code, this.name, this.flagAsset);
 
   static Language fromCode(String code) {
     return Language.values.firstWhere(

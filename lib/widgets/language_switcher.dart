@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import '../providers/language_provider.dart';
 
@@ -30,9 +31,12 @@ class _LanguageSwitcherState extends State<LanguageSwitcher> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  languageProvider.currentLanguage.flag,
-                  style: const TextStyle(fontSize: 20),
+                SizedBox(
+                  width: 24,
+                  height: 18,
+                  child: SvgPicture.asset(
+                    languageProvider.currentLanguage.flagAsset,
+                  ),
                 ),
                 if (widget.showLabel) ...[
                   const SizedBox(width: 8),
@@ -53,7 +57,11 @@ class _LanguageSwitcherState extends State<LanguageSwitcher> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(language.flag, style: const TextStyle(fontSize: 24)),
+                    SizedBox(
+                      width: 32,
+                      height: 24,
+                      child: SvgPicture.asset(language.flagAsset),
+                    ),
                     const SizedBox(width: 12),
                     Text(language.name),
                   ],
