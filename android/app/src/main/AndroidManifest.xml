@@ -1,4 +1,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Permissions for Camera -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    
+    <!-- Permissions for Location/GPS -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    
+    <!-- Permissions for Gallery/Image Picker -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    
+    <!-- Permission for Internet (API calls) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    
     <application
         android:label="e_co_mobile2"
         android:name="${applicationName}"
